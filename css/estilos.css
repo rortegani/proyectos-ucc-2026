@@ -1,0 +1,44 @@
+:root{--cyan:#008ca4;--teal:#006b7c;--deep:#004f60;--lime:#8cbd26;--ink:#273b44;--muted:#546772;--line:#dce7e9;--surface:#f3f7f8;--white:#fff;--radius:12px}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--surface);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}button,a,summary{-webkit-tap-highlight-color:transparent}button{font:inherit}button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid #e0a71e;outline-offset:4px}.hero{text-align:center;background:#fff;padding:clamp(26px,5vw,48px) 20px 30px;border-bottom:4px solid var(--cyan)}.logo{display:block;width:min(310px,75vw);height:auto;max-height:130px;object-fit:contain;margin:0 auto 24px}.hero h1{font-size:clamp(1.7rem,3.8vw,2.65rem);letter-spacing:-.035em;line-height:1.2;margin:0;font-weight:720;color:#25363f}.accent{display:block;margin:18px auto;width:64px;height:4px;background:var(--lime);border-radius:3px}.teacher{font-size:1.06rem;font-weight:650;margin:0 0 3px}.semester{color:var(--muted);margin:0}.container{max-width:1240px;margin:0 auto;padding:30px clamp(14px,3vw,32px) 42px;display:grid;gap:20px}.course{background:white;border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 2px 10px #23434d09;overflow:hidden;min-width:0}.course summary{cursor:pointer;list-style:none;display:flex;gap:14px;align-items:center;background:var(--teal);color:white;padding:17px 21px;border-left:5px solid var(--lime);user-select:none}.course summary::-webkit-details-marker{display:none}.course summary:hover{background:var(--deep)}.course-heading{flex:1;min-width:0}.course h2{margin:0;font-size:clamp(1rem,2vw,1.17rem);line-height:1.35;font-weight:650}.count{font-size:.79rem;color:#d3f0f3;margin-top:3px;display:block}.chevron{width:13px;height:13px;flex:0 0 13px;border-right:2px solid white;border-bottom:2px solid white;transform:rotate(45deg);margin:0 4px 4px 0}.course[open] .chevron{transform:rotate(225deg);margin-bottom:-5px}.course-body{padding:20px}.empty{margin:0;color:var(--muted);font-size:.92rem;padding:5px 0}.projects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.project{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;min-width:0}.media{aspect-ratio:16/9;position:relative;background:#153843;overflow:hidden}.play{border:0;width:100%;height:100%;cursor:pointer;color:white;background:radial-gradient(ellipse at 70% 0%,#367b85 0%,#1b4958 45%,#14343e 95%);display:grid;place-content:center;justify-items:center;gap:9px;transition:filter .15s}.play:hover{filter:brightness(1.15)}.play:focus-visible{outline-offset:-5px}.play-icon{display:grid;place-items:center;width:54px;height:54px;border:2px solid #ffffffc9;border-radius:50%;background:#ffffff15}.play-icon::after{content:"";border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid white;margin-left:4px}.play-label{font-size:.82rem;color:#edf9fa;font-weight:550}.media iframe{border:0;width:100%;height:100%;display:block}.project-info{padding:15px 16px}.project h3{font-size:1.03rem;color:#234b58;margin:0 0 8px;overflow-wrap:anywhere;line-height:1.35}.student-label{display:block;color:var(--muted);font-size:.75rem}.student{margin:3px 0 0;font-size:.9rem;overflow-wrap:anywhere}.pending{color:var(--muted)}.original{display:inline-block;margin-top:10px;color:var(--teal);font-size:.82rem;text-underline-offset:3px}.original[hidden]{display:none}@media(min-width:1450px){.container{max-width:1450px}.projects{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(max-width:900px){.projects{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.projects{grid-template-columns:1fr}.course summary{padding:15px 13px}.course-body{padding:12px}.container{gap:14px;padding-top:20px}.logo{margin-bottom:18px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.description{font-size:.88rem;line-height:1.55;color:var(--ink);margin:12px 0 0;padding-top:12px;border-top:1px solid var(--line);overflow-wrap:anywhere}
+
+.student{list-style:none;padding:0}.student li+li{margin-top:2px}.project{display:flex;flex-direction:column}.project-info{flex:1}
+
+/* Uniform sections: natural content sizes measured per course. */
+.projects{align-items:stretch}
+.project{display:grid;grid-template-rows:auto var(--title-height,auto) var(--body-height,auto) var(--authors-height,auto);align-content:stretch;min-width:0}
+.project-header,.project-authors,.project-body{align-self:start;min-width:0;padding-inline:16px}
+.project-header{padding-top:16px;padding-bottom:10px;width:100%}
+.project h3{margin:0;font-size:1.03rem;line-height:1.4;font-weight:700}
+.project-authors{padding-top:12px;padding-bottom:12px;border-top:1px solid var(--line)}
+.student{line-height:1.45;margin-top:5px}
+.student li+li{margin-top:3px}
+.project-body{padding-top:12px;padding-bottom:16px;border-top:1px solid var(--line)}
+.description{margin:0;padding:0;border:0;font-size:.88rem;line-height:1.55}
+.project-cover{position:relative;align-self:end;min-width:0}
+.media{aspect-ratio:16/9;width:100%}
+.original{position:absolute;top:8px;right:8px;z-index:1;margin:0;padding:5px 8px;color:white;background:#153843eb;border-radius:5px;font-size:.73rem}
+@media(max-width:560px){.project-header,.project-authors,.project-body{padding-inline:14px}}
+
+/* Video, title, description and student footer. */
+.project-header{background:#f5fafb;padding-bottom:14px}
+.project-body{padding-top:14px;padding-bottom:16px}
+.project-authors{align-self:start;padding-top:14px;padding-bottom:14px;border-top:0;color:var(--ink);background:#f3f7f8;width:100%;position:relative}
+.project-authors::before{content:"";position:absolute;inset:0;bottom:auto;border-top:1px solid var(--line)}
+.project-authors .student{margin:0;font-size:.88rem;line-height:1.5}
+.project-authors .student li+li{margin-top:3px}
+
+.project{background:#fff}.project-header,.project-authors{background:#fff}.project-authors::before{border-top:1px solid var(--line)}
+
+/* v6: video first, followed by synchronized text bands. */
+.project-cover{align-self:start;width:100%}
+
+/* Implementación: sin bloque de descripción ni espacio reservado. */
+.project.no-description{grid-template-rows:auto var(--title-height,auto) var(--authors-height,auto)}
+
+/* Enfoque académico bajo cada encabezado de asignatura. */
+.course-focus{font-size:.85rem;line-height:1.45;font-weight:400;color:#fff;margin:6px 0 4px;max-width:100ch}
+
+/* Miniaturas originales; el iframe sigue cargándose solo al hacer clic. */
+.play{position:relative;isolation:isolate}.video-thumbnail{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#12232a;z-index:-2}.play.has-thumbnail{background:#12232a}.play.has-thumbnail::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,#0005);z-index:-1}.play.has-thumbnail .play-icon{width:53px;height:53px;background:#07343bbb;border:2px solid #fff;box-shadow:0 3px 14px #0006}.play.has-thumbnail .play-label{background:#0c2634da;padding:3px 9px;border-radius:20px;font-size:.72rem}.play.has-thumbnail:hover .play-icon{background:#007e92}.play.has-thumbnail:hover{filter:brightness(1.04)}
