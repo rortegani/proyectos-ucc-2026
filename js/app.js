@@ -2,8 +2,27 @@
 (() => {
   const main = document.getElementById('asignaturas');
   const element = (tag, cls, text) => { const e=document.createElement(tag); if(cls)e.className=cls; if(text!==undefined)e.textContent=text; return e; };
-  let active = null;
-  function stopVideo(){if(!active)return; const {media,button,link}=active; media.replaceChildren(button);link.hidden=true;active=null;}
+  // Reproductor único en ventana modal: conserva todas las miniaturas.
+  const dialog=element('dialog','video-dialog');dialog.setAttribute('aria-labelledby','video-dialog-title');
+  const dialogHeader=element('header','video-dialog-header');
+  const dialogTitle=element('h2');dialogTitle.id='video-dialog-title';
+  const closeButton=element('button','video-close','Cerrar ×');closeButton.type='button';closeButton.setAttribute('aria-label','Cerrar video');
+  const screen=element('div','video-screen');
+  const dialogFooter=element('div','video-dialog-footer');
+  const driveLink=element('a','video-drive-link','Abrir video en Google Drive');driveLink.target='_blank';driveLink.rel='noopener noreferrer';
+  dialogHeader.append(dialogTitle,closeButton);dialogFooter.append(driveLink);dialog.append(dialogHeader,screen,dialogFooter);document.body.append(dialog);
+  let active=null;
+  function stopVideo(){if(dialog.open)dialog.close();}
+  dialog.addEventListener('close',()=>{if(dialog.open)return;screen.replaceChildren();driveLink.removeAttribute('href');document.body.classList.remove('video-open');const trigger=active?.button;active=null;if(trigger?.isConnected)trigger.focus({preventScroll:true});});
+  closeButton.addEventListener('click',stopVideo);
+  dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)stopVideo();});
+  function openVideo(project,button,article){
+    if(dialog.open)return;
+    dialogTitle.textContent=project.nombre;
+    driveLink.href=`https://drive.google.com/file/d/${project.driveId}/view`;
+    const iframe=element('iframe');iframe.src=`https://drive.google.com/file/d/${project.driveId}/preview`;iframe.title=`Video de ${project.nombre}`;iframe.allow='autoplay; fullscreen';iframe.allowFullscreen=true;
+    screen.replaceChildren(iframe);active={button,article};dialog.showModal();document.body.classList.add('video-open');closeButton.focus();
+  }
   function card(project, showDescription = true){
     const article=element('article',showDescription?'project':'project no-description');
     const media=element('div','media');
@@ -23,17 +42,10 @@
     const title=element('h3','',project.nombre);
     const students=Array.isArray(project.estudiantes)?project.estudiantes.filter(x=>typeof x==='string'&&x.trim()):[];
     const student=element('ul',students.length?'student':'student pending');for(const name of (students.length?students:['Nombre pendiente de confirmar']))student.append(element('li','',name));
-    const link=element('a','original','Abrir video en Google Drive');link.hidden=true;link.target='_blank';link.rel='noopener noreferrer';
     const valid=/^[A-Za-z0-9_-]{10,}$/.test(project.driveId||'');
-    if(valid){
-      link.href=`https://drive.google.com/file/d/${project.driveId}/view`;
-      button.addEventListener('click',()=>{
-        stopVideo();
-        const iframe=element('iframe');iframe.src=`https://drive.google.com/file/d/${project.driveId}/preview`;iframe.title=`Video de ${project.nombre}`;iframe.allow='autoplay; fullscreen';iframe.allowFullscreen=true;
-        media.replaceChildren(iframe);link.hidden=false;active={media,button,link,article};
-      });
-    }else{button.disabled=true;button.querySelector('.play-label').textContent='Video no disponible';}
-    header.append(title);authors.append(student);cover.append(media,link);article.append(cover,header);
+    if(valid){button.setAttribute('aria-haspopup','dialog');button.addEventListener('click',()=>openVideo(project,button,article));}
+    else{button.disabled=true;button.querySelector('.play-label').textContent='Video no disponible';}
+    header.append(title);authors.append(student);cover.append(media);article.append(cover,header);
     if(showDescription){body.append(element('p','description',project.descripcion||'Descripción pendiente de incorporar.'));article.append(body);}
     article.append(authors);return article;
   }
